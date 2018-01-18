@@ -12,7 +12,12 @@ requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 logging.basicConfig()
 alfred = logging.getLogger("Remove_SDC_Script")
 
-# get arguments
+################################################
+## Check for environment variables
+## If appropriate environment variables do not exist
+## log error to loggin library and exit
+####################################################
+
 if "HOST_IP" in os.environ:
     server = os.getenv("HOST_IP")
 else:
@@ -44,21 +49,25 @@ sdcURL = server + "/api/types/Sdc/instances"
 # start Session
 _session = requests.Session()
 
-# make key call
+# make key call and receive authorization token
 token = _session.get(keyURL, auth=HTTPBasicAuth(user, password), verify=False)
 
-
+# ensure response code is 200
+# exit if code not 200
+# report error via logging mechanism
 if  token.status_code != 200:
     alfred.error("The process exited with a {} status".format(token.status_code))
     alfred.error("The error message states: {}".format(token.content))
     exit()
 
-    
+
+# Add authorization token to session
 _session.auth = HTTPBasicAuth('', token.json())
 
 # get list of SDCs
 res = _session.get(sdcURL)
 
+# Status code checking
 if  res.status_code != 200:
     alfred.error("The process exited with a {} status".format(res.status_code))
     alfred.error("The error message states: {}".format(res.content))
@@ -67,9 +76,11 @@ if  res.status_code != 200:
 # Print length of SDC List
 alfred.info("There are {} SDCs registered before execution".format(len(res.content)))
 
-# find id of SDC
-sdcId = None
 
+
+# find id of SDC by looping through list of SDCs
+# returned from ScaleIO
+sdcId = None
 
 for i in res.json():
     if i['sdcIp'] == removeIP:
@@ -81,6 +92,8 @@ for i in res.json():
         # exit loop
         break
         
+# Exit script if we do not find matching SDC to IP address
+# found in environment variables
 if sdcId == None:
     alfred.error("Can't find an SDC with IP {}".format(removeIP))
     exit()
@@ -94,6 +107,7 @@ if  res.status_code != 200:
     alfred.error("The error message states: {}".format(res.content))
     exit()
 
+# Log final HTTP status with logging mechanism
 alfred.info("The process exited with a {} status".format(res.status_code))
 alfred.info("The error message states: {}".format(res.content))
 
