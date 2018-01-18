@@ -1,7 +1,6 @@
 import requests
 import logging
 import os
-import json
 from requests.auth import HTTPBasicAuth
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 
