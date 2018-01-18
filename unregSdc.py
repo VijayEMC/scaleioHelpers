@@ -9,7 +9,7 @@ requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 # ScaleIO object containing all variables
 # Upon instantiation, object will contain all Env Variables
-class ScaleIO(object):
+class ScaleIO():
     
     def __init__(self):    
         # instantiate Logger
@@ -23,6 +23,7 @@ class ScaleIO(object):
         self.keyURL = None
         self.sdcURL = None
         unregSdcLib.checkSetEnvVars(self)
+        unregSdcLib.setUrls(self)
 
 # create ScaleIO object
 sio = ScaleIO()

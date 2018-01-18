@@ -1,7 +1,8 @@
 import os
 
 ################################################
-# Check for environment variables
+# Check for environment variables, set to variables
+# within object
 # If appropriate environment variables do not exist
 # log error to logging library and exit
 ####################################################
@@ -30,6 +31,11 @@ def checkSetEnvVars (sio):
         sio.alfred.error("Error reading Enviornment Variables. Please include the following: HOST_IP = <IP of ScaleIO Gateway>, USER = <username>, PASSWORD = <password>, REMOVE_SDC_IP = <IP address of SDC to remove>")
         exit()
     
+###################################
+# Set URLs in SIO object
+#################################
+
+def setUrls(sio):
     sio.keyURL = sio.server + "/api/login"
     sio.sdcURL = sio.server + "/api/types/Sdc/instances"
         
