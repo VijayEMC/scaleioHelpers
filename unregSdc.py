@@ -38,10 +38,6 @@ else:
     alfred.error("Error reading Enviornment Variables. Please include the following: HOST_IP = <IP of ScaleIO Gateway>, USER = <username>, PASSWORD = <password>, REMOVE_SDC_IP = <IP address of SDC to remove>")
     exit()
 
-print(server)
-print(user)
-print(password)
-print(removeIP)
 # build URLs
 keyURL = server + "/api/login"
 sdcURL = server + "/api/types/Sdc/instances"
