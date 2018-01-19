@@ -70,7 +70,7 @@ sdcId = renameSdcLib.checkSdcId(sio, res)
 
 
 ##################
-# set SDC
+# set SDC name
 ###################
 renameSdcURL = sio.server + "/api/instances/Sdc::" + sdcId + "/action/setSdcName"
 postBody = {"sdcName" :sio.newSdcName}

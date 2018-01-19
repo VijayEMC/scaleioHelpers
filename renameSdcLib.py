@@ -49,10 +49,9 @@ def setUrls(sio):
 # checkSdcId
 # Function checks for SDC object within response from
 # API endpoint: "/api/types/Sdc/instances" that matches
-# sio.removeIP <the SDC IP we want to remove from the 
-# cluser>
-# Arguments: ScaleIO object from unregSdc and response
-# object from API endpoing: "/api/types/Sdc/instances"
+# sio.renameGuid <the SDC guid we want to rename >
+# Arguments: ScaleIO object from renameSdc and response
+# object from API endpoint: "/api/types/Sdc/instances"
 # Function will return the SDC Id if found, or exit
 # if SDC is in a connected state or not found
 ####################################################
